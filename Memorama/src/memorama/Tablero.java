@@ -2,15 +2,82 @@ package memorama;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class Tablero extends javax.swing.JFrame {
+    
+    private final Imagenes[] cartas = new Imagenes[5];
+    private Imagenes primeraCarta = null;
+    private Imagenes segundaCarta = null;
+    private boolean esperando = false;
 
     public Tablero() {
         setUndecorated(true);
         initComponents();
+        inicializarCartas();
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
 
+    }
+    
+    private void inicializarCartas() {
+        // Define las rutas de las imágenes (asegúrate que las imágenes estén en /imagenes en resources)
+        String reverso = "/imagenes/reverso.png";
+        String par1 = "/imagenes/par1.jpg";
+        String par2 = "/imagenes/par2.jpg";
+        String par3 = "/imagenes/par3.jpeg";
+        String par4 = "/imagenes/par4.jpeg";
+        String par5 = "/imagenes/par5.jpg";
+
+        // Asigna pares (cada imagen aparece dos veces, excepto el oso que es único para 9 botones)
+        cartas[0] = new Imagenes(jButton1, par1, reverso);
+        cartas[1] = new Imagenes(jButton2, par2, reverso);
+        cartas[2] = new Imagenes(jButton3, par3, reverso);
+        cartas[3] = new Imagenes(jButton4, par4, reverso);
+        cartas[4] = new Imagenes(jButton5, par5, reverso);
+
+        // Asigna listener personalizado para controlar la lógica
+        for (Imagenes carta : cartas) {
+            carta.getBoton().addActionListener(e -> manejarClick(carta));
+        }
+    }
+
+    private void manejarClick(Imagenes carta) {
+        if (esperando) return; // No hacer nada mientras espera timer
+        if (carta.estaVolteado()) return; // No voltear si ya está volteada
+
+        carta.voltear();
+
+        if (primeraCarta == null) {
+            primeraCarta = carta;
+        } else {
+            segundaCarta = carta;
+            esperando = true;
+
+            // Verifica si coinciden
+            if (primeraCarta.getFrente().equals(segundaCarta.getFrente())) {
+                // Coinciden, desbloquea para seguir jugando
+                primeraCarta = null;
+                segundaCarta = null;
+                esperando = false;
+            } else {
+                // No coinciden: espera 1 segundo y oculta
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        primeraCarta.ocultar();
+                        segundaCarta.ocultar();
+                        primeraCarta = null;
+                        segundaCarta = null;
+                        esperando = false;
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -60,77 +127,77 @@ public class Tablero extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton2.setText("jButton1");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton3.setText("jButton1");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton4.setText("jButton1");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton5.setText("jButton1");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton6.setText("jButton1");
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton7.setText("jButton1");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton8.setText("jButton1");
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton9.setText("jButton1");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton10.setText("jButton1");
+        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton11.setText("jButton1");
+        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton12.setText("jButton1");
+        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton13.setText("jButton1");
+        jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton14.setText("jButton1");
+        jButton14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton15.setText("jButton1");
+        jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton16.setText("jButton1");
+        jButton16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton17.setText("jButton1");
+        jButton17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton18.setText("jButton1");
+        jButton18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton19.setText("jButton1");
+        jButton19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton20.setText("jButton1");
+        jButton20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton21.setText("jButton1");
+        jButton21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton22.setText("jButton1");
+        jButton22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton23.setText("jButton1");
+        jButton23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton24.setText("jButton1");
+        jButton24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton25.setText("jButton1");
+        jButton25.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton26.setText("jButton1");
+        jButton26.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton27.setText("jButton1");
+        jButton27.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton28.setText("jButton1");
+        jButton28.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton29.setText("jButton1");
+        jButton29.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton30.setText("jButton1");
+        jButton30.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton31.setText("jButton1");
+        jButton31.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton32.setText("jButton1");
+        jButton32.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton33.setText("jButton1");
+        jButton33.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton34.setText("jButton1");
+        jButton34.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton35.setText("jButton1");
+        jButton35.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton36.setText("jButton1");
+        jButton36.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -260,7 +327,7 @@ public class Tablero extends javax.swing.JFrame {
                     .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 61, Short.MAX_VALUE))
         );
 
         titulo.setFont(new java.awt.Font("Kefa", 1, 48)); // NOI18N
@@ -269,7 +336,9 @@ public class Tablero extends javax.swing.JFrame {
         intentos.setFont(new java.awt.Font("Kefa", 1, 24)); // NOI18N
         intentos.setText("Intentos");
 
+        jButton37.setFont(new java.awt.Font("ITF Devanagari", 1, 18)); // NOI18N
         jButton37.setText("Salir");
+        jButton37.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton37ActionPerformed(evt);
@@ -303,11 +372,11 @@ public class Tablero extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
                         .addComponent(intentos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(315, 315, 315))))
+                        .addGap(334, 334, 334))))
         );
 
         pack();
