@@ -1,5 +1,6 @@
 package memorama;
 
+import java.awt.Color;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.Random;
@@ -364,6 +365,7 @@ public class Tablero extends javax.swing.JFrame {
         intentos.setText("Intentos");
 
         jButton37.setFont(new java.awt.Font("ITF Devanagari", 1, 18)); // NOI18N
+        jButton37.setForeground(new java.awt.Color(255, 0, 0));
         jButton37.setText("Salir");
         jButton37.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton37.addActionListener(new java.awt.event.ActionListener() {
