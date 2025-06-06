@@ -13,7 +13,7 @@ public class Tablero extends javax.swing.JFrame {
     private Imagenes imagen1 = null;
     private Imagenes imagen2 = null;
     private boolean puedeJugar = true;
-    private int intento = 2;
+    private int intento = 10;
     private int parEncontrados = 0;
 
     public Tablero() {
