@@ -72,7 +72,6 @@ public class Tablero extends javax.swing.JFrame {
 
         if (imagen1 == null) {
             imagen1 = imagen;
-            System.out.println(puedeJugar);
         } else if (imagen2 == null && imagen != imagen1) {
             imagen2 = imagen;
             puedeJugar = false;
