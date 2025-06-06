@@ -4,6 +4,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.Random;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class Tablero extends javax.swing.JFrame {
@@ -84,6 +85,12 @@ public class Tablero extends javax.swing.JFrame {
                     imagen2.ocultar();
                     intento--;
                     intentos.setText("Intentos: " + intento);
+                    if (intento ==0)
+                    {
+                    JOptionPane.showMessageDialog(this, "Te quedaste sin intentos :(");
+                    System.exit(0);
+                    }
+                
                 } else {
                     parEncontrados++;
                     paresEncontrados.setText("Pares Encontrados: " + parEncontrados + "/18");
