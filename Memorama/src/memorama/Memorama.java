@@ -7,7 +7,6 @@ public class Memorama {
         Tablero tablero = new Tablero();
         tablero.setVisible(true);
         tablero.setLocationRelativeTo(null);
-        
     }
     
 }
