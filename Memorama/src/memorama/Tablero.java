@@ -13,7 +13,7 @@ public class Tablero extends javax.swing.JFrame {
     private Imagenes imagen1 = null;
     private Imagenes imagen2 = null;
     private boolean puedeJugar = true;
-    private int intento = 10;
+    private int intento = 2;
     private int parEncontrados = 0;
 
     public Tablero() {
@@ -84,7 +84,7 @@ public class Tablero extends javax.swing.JFrame {
                     intento--;
                     intentos.setText("Intentos: " + intento);
                     if (intento == 0) {
-                       
+                        this.dispose();
                         sinIntentos sinintentos = new sinIntentos();
                         sinintentos.setVisible(true);
                         sinintentos.setLocationRelativeTo(null);
@@ -96,6 +96,7 @@ public class Tablero extends javax.swing.JFrame {
                     paresEncontrados.setText("Pares Encontrados: " + parEncontrados + "/18");
                     if (parEncontrados == 18)
                     {
+                        this.dispose();
                     encontrados Encontrados = new encontrados();
                     Encontrados.setVisible(true);
                     Encontrados.setLocationRelativeTo(null);
