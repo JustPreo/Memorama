@@ -30,7 +30,7 @@ public class Tablero extends javax.swing.JFrame {
     private void inicializarCartas() {
         String reverso = "/imagenes/reverso.png";
 
-        String[] frentes = new String[36]; // Se crea el arreglo de palabras
+        String[] frentes = new String[36];
         for (int i = 0; i < 18; i++) {
             frentes[i * 2] = "/imagenes/par" + (i + 1) + ".png";
             frentes[i * 2 + 1] = "/imagenes/par" + (i + 1) + ".png";
@@ -55,9 +55,9 @@ public class Tablero extends javax.swing.JFrame {
     }
 
     private void mezclar(String[] arreglo) {
-        Random rnd = new Random();
+        Random random = new Random();
         for (int i = arreglo.length - 1; i > 0; i--) {
-            int j = rnd.nextInt(i + 1);
+            int j = random.nextInt(i + 1);
             String temp = arreglo[i];
             arreglo[i] = arreglo[j];
             arreglo[j] = temp;
@@ -78,7 +78,6 @@ public class Tablero extends javax.swing.JFrame {
             imagen2 = imagen;
             puedeJugar = false;
 
-            // Verificar si son iguales
             Timer timer = new Timer(2000, e -> {
                 if (!imagen1.getFrente().equals(imagen2.getFrente())) {
                     imagen1.ocultar();

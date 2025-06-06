@@ -42,15 +42,15 @@ public class Imagenes {
             volteado = false;
         }
     }
+    
+    public JButton getBoton() {
+        return boton;
+    }
 
     private ImageIcon redimensionarImagen(String ruta) {
         ImageIcon imagenOriginal = new ImageIcon(getClass().getResource(ruta));
         Image imagenEscalada = imagenOriginal.getImage().getScaledInstance(132, 121, Image.SCALE_SMOOTH);
         return new ImageIcon(imagenEscalada);
-    }
-
-    public JButton getBoton() {
-        return boton;
     }
 }
 
