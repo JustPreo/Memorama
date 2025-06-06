@@ -1,85 +1,88 @@
 package memorama;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Random;
+import javax.swing.JButton;
 import javax.swing.Timer;
 
 public class Tablero extends javax.swing.JFrame {
-    
-    private final Imagenes[] cartas = new Imagenes[5];
-    private Imagenes primeraCarta = null;
-    private Imagenes segundaCarta = null;
-    private boolean esperando = false;
+
+    private Imagenes[] imagenes = new Imagenes[36];
+    private Imagenes imagen1 = null;
+    private Imagenes imagen2 = null;
+    private boolean puedeJugar = true;
 
     public Tablero() {
-        setUndecorated(true);
         initComponents();
         inicializarCartas();
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        gd.setFullScreenWindow(this);
+    }
 
+    private void inicializarCartas() {
+        String reverso = "/imagenes/reverso.png";
+
+        String[] frentes = new String[36]; // Se crea el arreglo de palabras
+        for (int i = 0; i < 18; i++) {
+            frentes[i * 2] = "/imagenes/par" + (i + 1) + ".png";
+            frentes[i * 2 + 1] = "/imagenes/par" + (i + 1) + ".png";
+        }
+
+        mezclar(frentes);
+
+        JButton[] botones = {
+            jButton1, jButton2, jButton3, jButton4, jButton5, jButton6,
+            jButton7, jButton8, jButton9, jButton10, jButton11, jButton12,
+            jButton13, jButton14, jButton15, jButton16, jButton17, jButton18,
+            jButton19, jButton20, jButton21, jButton22, jButton23, jButton24,
+            jButton25, jButton26, jButton27, jButton28, jButton29, jButton30,
+            jButton31, jButton32, jButton33, jButton34, jButton35, jButton36
+        };
+
+        for (int i = 0; i < 36; i++) {
+            Imagenes imagen = new Imagenes(botones[i], frentes[i], reverso);
+            imagenes[i] = imagen;
+            botones[i].addActionListener(e -> manejarClick(imagen));
+        }
+    }
+
+    private void mezclar(String[] arreglo) {
+        Random rnd = new Random();
+        for (int i = arreglo.length - 1; i > 0; i--) {
+            int j = rnd.nextInt(i + 1);
+            String temp = arreglo[i];
+            arreglo[i] = arreglo[j];
+            arreglo[j] = temp;
+        }
+    }
+
+    private void manejarClick(Imagenes imagen) {
+        if (!puedeJugar || imagen.estaVolteado()) {
+            return;
+        }
+
+        imagen.voltear();
+
+        if (imagen1 == null) {
+            imagen1 = imagen;
+        } else if (imagen2 == null && imagen != imagen1) {
+            imagen2 = imagen;
+            puedeJugar = false;
+
+            // Verificar si son iguales
+            Timer timer = new Timer(2000, e -> {
+                if (!imagen1.getFrente().equals(imagen2.getFrente())) {
+                    imagen1.ocultar();
+                    imagen2.ocultar();
+                }
+                imagen1 = null;
+                imagen2 = null;
+                puedeJugar = true;
+                ((Timer) e.getSource()).stop();
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+        }
     }
     
-    private void inicializarCartas() {
-        // Define las rutas de las imágenes (asegúrate que las imágenes estén en /imagenes en resources)
-        String reverso = "/imagenes/reverso.png";
-        String par1 = "/imagenes/par1.jpg";
-        String par2 = "/imagenes/par2.jpg";
-        String par3 = "/imagenes/par3.jpeg";
-        String par4 = "/imagenes/par4.jpeg";
-        String par5 = "/imagenes/par5.jpg";
-
-        // Asigna pares (cada imagen aparece dos veces, excepto el oso que es único para 9 botones)
-        cartas[0] = new Imagenes(jButton1, par1, reverso);
-        cartas[1] = new Imagenes(jButton2, par2, reverso);
-        cartas[2] = new Imagenes(jButton3, par3, reverso);
-        cartas[3] = new Imagenes(jButton4, par4, reverso);
-        cartas[4] = new Imagenes(jButton5, par5, reverso);
-
-        // Asigna listener personalizado para controlar la lógica
-        for (Imagenes carta : cartas) {
-            carta.getBoton().addActionListener(e -> manejarClick(carta));
-        }
-    }
-
-    private void manejarClick(Imagenes carta) {
-        if (esperando) return; // No hacer nada mientras espera timer
-        if (carta.estaVolteado()) return; // No voltear si ya está volteada
-
-        carta.voltear();
-
-        if (primeraCarta == null) {
-            primeraCarta = carta;
-        } else {
-            segundaCarta = carta;
-            esperando = true;
-
-            // Verifica si coinciden
-            if (primeraCarta.getFrente().equals(segundaCarta.getFrente())) {
-                // Coinciden, desbloquea para seguir jugando
-                primeraCarta = null;
-                segundaCarta = null;
-                esperando = false;
-            } else {
-                // No coinciden: espera 1 segundo y oculta
-                Timer timer = new Timer(1000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        primeraCarta.ocultar();
-                        segundaCarta.ocultar();
-                        primeraCarta = null;
-                        segundaCarta = null;
-                        esperando = false;
-                    }
-                });
-                timer.setRepeats(false);
-                timer.start();
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
