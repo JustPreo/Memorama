@@ -14,6 +14,7 @@ public class Tablero extends javax.swing.JFrame {
     private Imagenes imagen2 = null;
     private boolean puedeJugar = true;
     private int intento = 10;
+    private int parEncontrados = 0;
 
     public Tablero() {
         setUndecorated(true);
@@ -22,6 +23,7 @@ public class Tablero extends javax.swing.JFrame {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
         intentos.setText("Intentos: 10");
+        paresEncontrados.setText("Pares Encontrados: 0/18");
 
     }
 
@@ -74,7 +76,6 @@ public class Tablero extends javax.swing.JFrame {
             System.out.println(puedeJugar);
         } else if (imagen2 == null && imagen != imagen1) {
             imagen2 = imagen;
-            System.out.println(puedeJugar);
             puedeJugar = false;
 
             // Verificar si son iguales
@@ -84,8 +85,10 @@ public class Tablero extends javax.swing.JFrame {
                     imagen2.ocultar();
                     intento--;
                     intentos.setText("Intentos: " + intento);
+                } else {
+                    parEncontrados++;
+                    paresEncontrados.setText("Pares Encontrados: " + parEncontrados + "/18");
                 }
-
                 imagen1 = null;
                 imagen2 = null;
                 puedeJugar = true;
@@ -141,6 +144,7 @@ public class Tablero extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         intentos = new javax.swing.JLabel();
         jButton37 = new javax.swing.JButton();
+        paresEncontrados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -362,6 +366,9 @@ public class Tablero extends javax.swing.JFrame {
             }
         });
 
+        paresEncontrados.setFont(new java.awt.Font("Kefa", 1, 24)); // NOI18N
+        paresEncontrados.setText("Pares");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -375,7 +382,8 @@ public class Tablero extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(intentos)
-                            .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paresEncontrados))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -389,9 +397,11 @@ public class Tablero extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(intentos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(paresEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
                         .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(334, 334, 334))))
         );
@@ -480,6 +490,7 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel paresEncontrados;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
