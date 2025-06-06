@@ -30,6 +30,7 @@ public class encontrados extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setFont(new java.awt.Font("Kefa", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
