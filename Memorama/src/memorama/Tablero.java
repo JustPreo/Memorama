@@ -1,5 +1,6 @@
 package memorama;
 
+import java.awt.Color;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.Random;
@@ -31,7 +32,7 @@ public class Tablero extends javax.swing.JFrame {
     private void inicializarCartas() {
         String reverso = "/imagenes/reverso.png";
 
-        String[] frentes = new String[36]; // Se crea el arreglo de palabras
+        String[] frentes = new String[36];
         for (int i = 0; i < 18; i++) {
             frentes[i * 2] = "/imagenes/par" + (i + 1) + ".png";
             frentes[i * 2 + 1] = "/imagenes/par" + (i + 1) + ".png";
@@ -56,9 +57,9 @@ public class Tablero extends javax.swing.JFrame {
     }
 
     private void mezclar(String[] arreglo) {
-        Random rnd = new Random();
+        Random random = new Random();
         for (int i = arreglo.length - 1; i > 0; i--) {
-            int j = rnd.nextInt(i + 1);
+            int j = random.nextInt(i + 1);
             String temp = arreglo[i];
             arreglo[i] = arreglo[j];
             arreglo[j] = temp;
@@ -78,7 +79,6 @@ public class Tablero extends javax.swing.JFrame {
             imagen2 = imagen;
             puedeJugar = false;
 
-            // Verificar si son iguales
             Timer timer = new Timer(2000, e -> {
                 if (!imagen1.getFrente().equals(imagen2.getFrente())) {
                     imagen1.ocultar();
@@ -374,6 +374,7 @@ public class Tablero extends javax.swing.JFrame {
         intentos.setText("Intentos");
 
         jButton37.setFont(new java.awt.Font("ITF Devanagari", 1, 18)); // NOI18N
+        jButton37.setForeground(new java.awt.Color(255, 0, 0));
         jButton37.setText("Salir");
         jButton37.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton37.addActionListener(new java.awt.event.ActionListener() {
