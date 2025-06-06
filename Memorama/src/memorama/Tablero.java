@@ -1,5 +1,7 @@
 package memorama;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.Timer;
@@ -12,8 +14,12 @@ public class Tablero extends javax.swing.JFrame {
     private boolean puedeJugar = true;
 
     public Tablero() {
+        setUndecorated(true);
         initComponents();
         inicializarCartas();
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gd.setFullScreenWindow(this);
+
     }
 
     private void inicializarCartas() {
@@ -82,7 +88,7 @@ public class Tablero extends javax.swing.JFrame {
             timer.start();
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
