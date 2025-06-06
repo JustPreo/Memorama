@@ -1,11 +1,9 @@
 package memorama;
 
-import java.awt.Color;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.Random;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class Tablero extends javax.swing.JFrame {
