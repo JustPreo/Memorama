@@ -69,7 +69,6 @@ public class Tablero extends javax.swing.JFrame {
         if (!puedeJugar || imagen.estaVolteado()) {
             return;
         }
-
         imagen.voltear();
 
         if (imagen1 == null) {
@@ -86,15 +85,25 @@ public class Tablero extends javax.swing.JFrame {
                     imagen2.ocultar();
                     intento--;
                     intentos.setText("Intentos: " + intento);
-                    if (intento ==0)
-                    {
-                    JOptionPane.showMessageDialog(this, "Te quedaste sin intentos :(");
-                    System.exit(0);
+                    if (intento == 0) {
+                       
+                        sinIntentos sinintentos = new sinIntentos();
+                        sinintentos.setVisible(true);
+                        sinintentos.setLocationRelativeTo(null);
+                        
                     }
-                
+
                 } else {
                     parEncontrados++;
                     paresEncontrados.setText("Pares Encontrados: " + parEncontrados + "/18");
+                    if (parEncontrados == 18)
+                    {
+                    encontrados Encontrados = new encontrados();
+                    Encontrados.setVisible(true);
+                    Encontrados.setLocationRelativeTo(null);
+                    }
+                    
+                    
                 }
                 imagen1 = null;
                 imagen2 = null;
