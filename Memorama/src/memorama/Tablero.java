@@ -8,10 +8,12 @@ import javax.swing.Timer;
 
 public class Tablero extends javax.swing.JFrame {
 
+    private JButton[] botones;
     private Imagenes[] imagenes = new Imagenes[36];
     private Imagenes imagen1 = null;
     private Imagenes imagen2 = null;
     private boolean puedeJugar = true;
+    private int intento = 10;
 
     public Tablero() {
         setUndecorated(true);
@@ -19,6 +21,7 @@ public class Tablero extends javax.swing.JFrame {
         inicializarCartas();
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
+        intentos.setText("Intentos: 10");
 
     }
 
@@ -33,7 +36,7 @@ public class Tablero extends javax.swing.JFrame {
 
         mezclar(frentes);
 
-        JButton[] botones = {
+        botones = new JButton[]{
             jButton1, jButton2, jButton3, jButton4, jButton5, jButton6,
             jButton7, jButton8, jButton9, jButton10, jButton11, jButton12,
             jButton13, jButton14, jButton15, jButton16, jButton17, jButton18,
@@ -68,8 +71,10 @@ public class Tablero extends javax.swing.JFrame {
 
         if (imagen1 == null) {
             imagen1 = imagen;
+            System.out.println(puedeJugar);
         } else if (imagen2 == null && imagen != imagen1) {
             imagen2 = imagen;
+            System.out.println(puedeJugar);
             puedeJugar = false;
 
             // Verificar si son iguales
@@ -77,7 +82,10 @@ public class Tablero extends javax.swing.JFrame {
                 if (!imagen1.getFrente().equals(imagen2.getFrente())) {
                     imagen1.ocultar();
                     imagen2.ocultar();
+                    intento--;
+                    intentos.setText("Intentos: " + intento);
                 }
+
                 imagen1 = null;
                 imagen2 = null;
                 puedeJugar = true;

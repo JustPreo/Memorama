@@ -18,14 +18,6 @@ public class Imagenes {
         this.defrente = defrente;
         this.reverso = reverso;
         this.boton.setIcon(redimensionarImagen(reverso));
-        this.boton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (!volteado) {
-                    voltear();
-                }
-            }
-        });
     }
 
     public void voltear() {
